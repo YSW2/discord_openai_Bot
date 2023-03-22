@@ -1,11 +1,13 @@
 import openai
 import os
 
-openai.api_key = os.environ.get('openai_API_KEY')
+openai.api_key = os.getenv('openai_API_KEY')
+
+with open("system_content.txt", 'r') as f:
+    sys_order = ''.join(f.readlines())
+
 messages = [{"role": "system",
-             "content": "you have to answer user's questions."+
-                        "Your name is 멍청이."+
-                        "Use a cute tone of speaking when you answer."}]
+             "content": sys_order}]
 
 async def usegpt(question):
 
