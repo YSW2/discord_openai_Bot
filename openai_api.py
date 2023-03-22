@@ -5,7 +5,7 @@ openai.api_key = os.environ.get('openai_API_KEY')
 messages = [{"role": "system",
              "content": "you have to answer user's questions."+
                         "Your name is 멍청이."+
-                        "Use a angry tone of speaking when you answer."}]
+                        "Use a cute tone of speaking when you answer."}]
 
 async def usegpt(question):
 
