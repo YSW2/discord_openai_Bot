@@ -48,5 +48,5 @@ async def on_message(message):
 
 		for i in range(len(responses)):
 			await message.channel.send(f"{name[i]}/ {responses[i]}")
-
+	
 bot.run(token)
