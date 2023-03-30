@@ -37,23 +37,10 @@ async def on_message(message):
 		await bot.process_commands(message)
 		return
 
-	content = message.content
-	prompts = []
-	tasks = []
-	name = []
-	if content.startswith(prefix):
-		prompts.append([message.author, content[1:]])
-		for nick, prompt in prompts:
-			name.append(nick)
-			tasks.append(asyncio.ensure_future(openai_bot.usegpt(prompt)))
-		responses = await asyncio.gather(*tasks)
-
-		for i, response in enumerate(responses):
-			index = 0
-			while index < len(response):
-				await message.channel.send(f"{name[i].mention}{response[index: min(index+2000, len(response))]}")
-				index += 2000
-	tasks.clear()
-	name.clear()
-
+	if message.content.startswith(prefix):
+		prompt = message.content[1:]
+		response = await openai_bot.usegpt(prompt)
+		for index in range(0, len(response), 2000):
+			await message.channel.send(f"{message.author.mention}{response[index: index+2000]}")
+			
 bot.run(token)
